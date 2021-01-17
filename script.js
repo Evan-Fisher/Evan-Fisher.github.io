@@ -75,6 +75,9 @@ function renderProducers(data) {
   unlocked.forEach((prod, index) =>
     prodContain.appendChild(makeProducerDiv(prod, index))
   );
+  if (unlocked.length > 0) {
+    bestProd();
+  }
 }
 
 /**************
@@ -127,7 +130,6 @@ function buyButtonClick(event, data) {
       renderProducers(data);
       updateCPSView(data.totalCPS);
       updateCoffeeView(data.coffee);
-      bestProd();
     }
   }
 }
