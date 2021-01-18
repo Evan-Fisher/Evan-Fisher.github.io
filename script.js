@@ -51,6 +51,9 @@ function makeProducerDiv(producer, index) {
   <div class="producer-column">
     <div>Quantity: ${producer.qty}</div>
     <div>Coffee/second: ${producer.cps}</div>
+    <div id='${index}' class='cpcs'>
+      Cost per coffee/second: ${Math.round(currentCost / producer.cps)}
+    </div>
     <div>Cost: ${currentCost} coffee</div>
   </div>
   `;
@@ -76,11 +79,15 @@ function renderProducers(data) {
   unlocked.forEach((prod, index) =>
     prodContain.appendChild(makeProducerDiv(prod, index))
   );
-  // ADD IN TO HIGHLIGHT BEST PROD
-  // if (unlocked.length > 0) {
-  //   bestProd();
-  // }
+  if (unlocked.length > 0) {
+    bestProd();
+  }
 }
+
+// ADD IN TO HIGHLIGHT BEST PROD
+// if (unlocked.length > 0) {
+//   bestProd();
+// }
 
 /**************
  *   SLICE 3
@@ -138,6 +145,15 @@ function buyButtonClick(event, data) {
 
 function tick(data) {
   data.coffee += data.totalCPS;
+  // if (data.coffee > 500) {
+  //   document.querySelector('#big_coffee').style.fontSize = '500px';
+  // }
+  let size = Math.round(Math.sqrt(data.coffee) / 2);
+  if (size < 300 && size > 10) {
+    document.querySelector('#big_coffee').style.fontSize = (
+      size + 'px'
+    ).toString();
+  }
   updateCoffeeView(data.coffee);
   renderProducers(data);
   updateCPSView(data.totalCPS);
@@ -156,7 +172,7 @@ function bestProd(data) {
 
   document.getElementById(
     `${childNum}`
-  ).parentNode.parentNode.style.background = '#66ff66';
+  ).parentNode.parentNode.style.background = '#ff33cc';
 }
 /*************************
  *  Local Storage!

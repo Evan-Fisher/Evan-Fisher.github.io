@@ -3,6 +3,7 @@
 }
 body {
   margin: 0px;
+  background-color: #ffff66;
 }
 .column-container {
   display: flex;
